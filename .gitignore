@@ -1,0 +1,19 @@
+# Run data (personal, changes every run)
+paper_state.json
+paper_trades.csv
+scan_results.csv
+trader_log.txt
+*.log
+
+# Secrets - NEVER commit wallet keys or API keys
+.env
+.env.*
+*keypair*.json
+*wallet*.json
+id.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
