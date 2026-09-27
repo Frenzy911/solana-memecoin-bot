@@ -66,8 +66,10 @@ SETTINGS = {
     # Exit rules (all measured on what you'd really get back, after costs)
     "take_profit_pct": 30,
     "stop_loss_pct": 15,
-    "trailing_stop_pct": 12,         # sell if value falls this far from its peak...
-    "trailing_arm_pct": 10,          # ...once it's been at least this far in profit
+    "trailing_stop_pct": 10,         # sell if value falls this far from its peak...
+    "trailing_arm_pct": 15,          # ...once it's been at least this far in profit
+                                     # (arm must beat the trail, or the "profit lock" can sell at a loss:
+                                     #  +15% peak, -10% trail -> worst trigger about +3.5%)
     "max_hold_min": 90,
     "rug_liquidity_drop_pct": 50,    # liquidity falls this much since entry -> get out
 
@@ -371,6 +373,10 @@ def run(end_time=None, reset=False):
     print(f"Caps: {s['sol_per_trade']} SOL/trade, {s['max_sol_in_play']} SOL in play, "
           f"daily +{s['daily_profit_target_sol']} / -{s['daily_loss_limit_sol']} SOL")
     print(f"Running until {end_time:%H:%M}" if end_time else "Running until Ctrl+C")
+    worst_trail = ((1 + s["trailing_arm_pct"] / 100) * (1 - s["trailing_stop_pct"] / 100) - 1) * 100
+    if worst_trail <= 0:
+        print(f"⚠ Trailing stop settings can sell at a loss (worst trigger {worst_trail:+.1f}%). "
+              "Raise trailing_arm_pct or lower trailing_stop_pct.")
 
     next_scan = datetime.now()
     try:

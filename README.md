@@ -57,7 +57,7 @@ Get 50+ closed trades before trusting the numbers or changing settings.
 
 **Entries:** VOLATILE or HIGH_VOLUME bucket, rising over the last 5 minutes, 1h change between -20% and +150%, not traded in the last hour.
 
-**Exits** (measured on what Jupiter would actually pay, after costs): take profit +30%, stop loss -15%, trailing stop 12% from peak once +10% up, 90 minute max hold, or liquidity drops 50%.
+**Exits** (measured on what Jupiter would actually pay, after costs): take profit +30%, stop loss -15%, trailing stop 10% from peak once +15% up (so it triggers at about +3.5% or better, before any crash overshoot), 90 minute max hold, or liquidity drops 50%.
 
 **Risk caps:** 0.25 SOL per trade, 1 SOL in play, 4 positions max; stop for the day at +0.5 or -0.3 SOL.
 
